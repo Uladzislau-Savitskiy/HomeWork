@@ -1,6 +1,6 @@
 bucket_3l_list = [" ", " ", " "]
 bucket_5l_list = [" ", " ", " ", " ", " "]
-clear = "\b" * 10000
+clear = "\b"*10000
 front = """
 
     3l             5l
@@ -24,15 +24,19 @@ working = True
 
 while working:
 
+
+
     # --------------------------------------------------------------
     bucket_3l_list = (["@"] * database['bucket_3l'] + [" "] * 3)[:3]
     bucket_5l_list = (["@"] * database['bucket_5l'] + [" "] * 5)[:5]
     print(front.format(*(bucket_3l_list[:4] + bucket_5l_list)))
-    if database['bucket_5l'] == 4:
+    if  database['bucket_5l'] == 4:
         print("You WIN")
         break
     cmd = input(">> ")
     # --------------------------------------------------------------
+
+
 
     if cmd == "fill_3l":
         database['bucket_3l'] = 3
