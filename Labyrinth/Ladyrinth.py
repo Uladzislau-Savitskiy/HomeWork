@@ -45,3 +45,51 @@ class Player:
             print(f"You entered the {self.location.name} room.")
         else:
             print("There is no such door.")
+
+
+def create_labyrinth():
+    all_rooms = []
+    all_doors = []
+    rooms_name = [
+        "Room with a fireplace", "Room with paintings", "Room with books", "Room with mirrors", "Room with flowers",
+        "Room with a fountain", "Room with musical instruments", "Room with chess", "Room with puzzles",
+        "Room with treasures", "Exit"
+    ]
+    doors_name = [
+        "Door with a fiery pattern", "Door with a watery pattern", "Door with an earthy pattern",
+        "Door with an airy pattern", "Door with a wooden pattern", "Door with a metallic pattern",
+        "Door with a stone pattern", "Door with a glass pattern", "Door with a paper pattern",
+        "Door with a golden pattern", "Door with a silver pattern", "Door with a bronze pattern",
+        "Door with an iron pattern", "Door with a copper pattern", "Door with a lead pattern"
+    ]
+
+    for i in range(len(rooms_name)):
+        all_rooms.append(Rooms(rooms_name[i]))
+
+    for i in range(len(doors_name)):
+        all_doors.append(Doors(doors_name[i], all_rooms[i % len(all_rooms)]))
+
+    for room in all_rooms:
+        count_door = random.randint(2, 4)
+        available_doors = all_doors.copy()
+        random.shuffle(available_doors)
+
+        for _ in range(count_door):
+            door = available_doors.pop()
+            room.add_door(door)
+
+    return all_rooms, all_doors
+
+
+rooms, doors = create_labyrinth()
+player = Player('Vlad', rooms[0])
+game = True
+
+while game:
+    player.look_around()
+    door_number = int(input("Enter the door number you want to enter: "))
+    player.enter_a_room(door_number)
+
+    if player.location.name == 'Exit':
+        print("Congratulations! You found the room with treasures and won the game!")
+        game = False
